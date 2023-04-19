@@ -1,4 +1,4 @@
-import { Country } from "~/pages/types"
+import type { Country } from "~/pages/types"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import Image from "next/image"
 

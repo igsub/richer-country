@@ -2,7 +2,6 @@ import Link from "next/link"
 import {
   Menubar,
   MenubarMenu,
-  MenubarTrigger,
 } from "./ui/menubar"
  
 export default function NavigationBar() {

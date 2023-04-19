@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import { Progress } from '~/components/ui/progress'
-
 import { api } from '~/utils/api'
 
 const index = () => {
@@ -12,7 +10,7 @@ const index = () => {
     <div className='flex flex-col items-center'>
     <ul className='w-full md:w-3/4'>
       {richerList?.map(country => (
-        <li className='m-2 p-2 text-center rounded-lg border'>
+        <li className='m-2 p-2 text-center rounded-lg border' key={`listItem-${country.country_name}`}>
           <div className="flex justify-start w-full">
             <Image src={country.flag} alt={country.alt} width={80} height={50}/>
             <div className="flex w-full justify-center items-center">
