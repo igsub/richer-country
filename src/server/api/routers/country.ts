@@ -3,9 +3,30 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const countriesRouter = createTRPCRouter({
+  getDataByName: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+      })
+    ).query(async ({ ctx, input }) => {
+    return ctx.prisma.country.findUnique({
+      where: {
+        name: input.name
+      }
+    })
+  }),
 
   getRicherList: publicProcedure.query(async ({ ctx }) => {
-    return null
+    return ctx.prisma.richer.findMany({
+      orderBy: [
+        {
+          win_percentage: 'desc'
+        },
+        {
+          voted: 'desc'
+        }
+      ]
+    })
   }),
 
   vote: publicProcedure
@@ -24,48 +45,49 @@ export const countriesRouter = createTRPCRouter({
         }
       })
 
-      console.log("existingCountry", existingCountry)
-
       if (existingCountry) {
         const richerVotes = await ctx.prisma.richer.findUnique({
           where: {
-            country_name: existingCountry.name,
+            country_name: input.name,
           }
         })
 
         const votes = richerVotes?.voted || 0
         const oneMoreVote = input.voted ? 1 : 0
+        const appearences = richerVotes ? richerVotes.apeard + 1 : 1
 
-        const update = await ctx.prisma.richer.update({
+        await ctx.prisma.richer.update({
           where: {
-            country_name: existingCountry.name,
+            country_name: input.name,
           },
           data: {
             voted: votes + oneMoreVote,
-            apeard: richerVotes ? richerVotes.apeard + 1 : 1
+            apeard: appearences,
+            win_percentage: (votes * 100) / (appearences)
           }
         })
-        console.log("update", update)
       }
       else {
-        const createdCountry = await ctx.prisma.country.create({
+        await ctx.prisma.country.create({
           data: {
             name: input.name,
             flag: input.flag,
             alt: input.alt,
           }
         })
-        console.log("createdCountry", createdCountry)
-        const createdRicher = await ctx.prisma.richer.create(
+        
+        await ctx.prisma.richer.create(
           {
             data: {
               country_name: input.name,
               apeard: 1,
-              voted: input.voted ? 1 : 0
+              voted: input.voted ? 1 : 0,
+              flag: input.flag,
+              alt: input.alt,
+              win_percentage: input.voted ? 100 : 0
             }
           }
         )
-        console.log("created richer", createdRicher)
       }
     })
 });

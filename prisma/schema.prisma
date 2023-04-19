@@ -26,6 +26,9 @@ model Country {
 model Richer {
   country       Country   @relation(fields: [country_name], references: [name])
   country_name  String    @id @unique
+  flag          String
+  alt           String
   apeard        Int
   voted         Int
+  win_percentage Int @default(0)
 }

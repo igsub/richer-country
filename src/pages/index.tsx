@@ -39,16 +39,13 @@ const Home: NextPage<IHomeProps> = ({ countries }) => {
   return (
     <div className="flex flex-col self-center justify-center items-center min-h-screen gap-4">
       <h1 className="text-2xl">Wich country is richer?</h1>
-      <div className="flex items-center gap-10">
-        {options.length ?
-        <>
-          <CountryCard country={options[0]!} onClick={() => handleCLick(options[0]!, 0)} />
-          <p>VS</p>
-          <CountryCard country={options[1]!} onClick={() => handleCLick(options[1]!, 1)} />
-        </>
-        : null }
-
+      {options.length ?
+      <div className="flex items-center flex-col lg:flex-row gap-10">
+        <CountryCard country={options[0]!} onClick={() => handleCLick(options[0]!, 0)} />
+        <p>VS</p>
+        <CountryCard country={options[1]!} onClick={() => handleCLick(options[1]!, 1)} />
       </div>
+      : null }
     </div>
   );
 };

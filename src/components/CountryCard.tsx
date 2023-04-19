@@ -1,5 +1,5 @@
 import { Country } from "~/pages/types"
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import Image from "next/image"
 
 interface ICountryCardProps {
@@ -11,7 +11,7 @@ const CountryCard = (props: ICountryCardProps) => {
   const { country, onClick } = props
 
   return (
-    <Card onClick={onClick} className="w-96 shadow-sm hover:shadow-xl cursor-pointer">
+    <Card onClick={onClick} className="w-72 lg:w-96 shadow-sm hover:shadow-xl cursor-pointer">
       <CardHeader>
         <CardTitle>
           {country?.name.official}
