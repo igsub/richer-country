@@ -1,4 +1,4 @@
-import type { Country } from "~/pages/types"
+import type { Country } from "~/types/country"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import Image from "next/image"
 import { defaultOption } from "~/utils/getRandomCountry"

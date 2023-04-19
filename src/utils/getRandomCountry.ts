@@ -1,4 +1,4 @@
-import type { Country } from "~/pages/types";
+import type { Country } from "~/types/country";
 
 export const defaultOption: Country = {
   name: {

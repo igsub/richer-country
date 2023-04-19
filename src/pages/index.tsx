@@ -1,6 +1,6 @@
 import { type GetStaticProps, type NextPage } from "next";
 import CountryCard from "~/components/CountryCard";
-import type { Country } from "./types"
+import type { Country } from "../types/country"
 import { getOptionsForVote } from "~/utils/getRandomCountry";
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
