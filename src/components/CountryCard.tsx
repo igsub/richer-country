@@ -4,14 +4,14 @@ import Image from "next/image"
 
 interface ICountryCardProps {
   country: Country
-  onClick: (option: Country) => void
+  onClick: () => void
 }
 
 const CountryCard = (props: ICountryCardProps) => {
   const { country, onClick } = props
 
   return (
-    <Card onClick={() => onClick(country)} className="w-96 shadow-sm hover:shadow-xl cursor-pointer">
+    <Card onClick={onClick} className="w-96 shadow-sm hover:shadow-xl cursor-pointer">
       <CardHeader>
         <CardTitle>
           {country?.name.official}

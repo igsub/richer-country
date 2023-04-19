@@ -11,13 +11,29 @@ interface IHomeProps {
 
 const Home: NextPage<IHomeProps> = ({ countries }) => {
   const [options, setOptions] = useState<Country[]>([])
-
+  const { mutate } = api.countries.vote.useMutation()
   useEffect(() => {
     setOptions(getOptionsForVote(countries))
   }, [])
 
-  const handleCLick = (option: Country) => {
+  const handleCLick = (option: Country, idx: number) => {
+    mutate({
+      name: option.name.official,
+      flag: option.flags.png,
+      alt: option.flags.alt,
+      voted: true
+    })
+    const otherOptionIdx = idx === 0 ? 1 : 0
+    const otherCountry = options[otherOptionIdx]
+
+    mutate({
+      name: otherCountry?.name.official || "",
+      flag: otherCountry?.flags.png || "" ,
+      alt: otherCountry?.flags.alt || "" ,
+      voted: false
+    })
     
+    setOptions(getOptionsForVote(countries))
   }
 
   return (
@@ -26,9 +42,9 @@ const Home: NextPage<IHomeProps> = ({ countries }) => {
       <div className="flex items-center gap-10">
         {options.length ?
         <>
-          <CountryCard country={options[0]!} onClick={handleCLick} />
+          <CountryCard country={options[0]!} onClick={() => handleCLick(options[0]!, 0)} />
           <p>VS</p>
-          <CountryCard country={options[1]!} onClick={handleCLick} />
+          <CountryCard country={options[1]!} onClick={() => handleCLick(options[1]!, 1)} />
         </>
         : null }
 

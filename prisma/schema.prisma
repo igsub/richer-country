@@ -17,17 +17,15 @@ model Example {
 }
 
 model Country {
-  id     Int     @id @default(autoincrement())
-  name   String
+  name   String  @id  @unique
   flag   String
   alt    String
   richer Richer?
 }
 
 model Richer {
-  id         Int     @id @default(autoincrement())
-  country    Country @relation(fields: [country_id], references: [id])
-  country_id Int     @unique
-  apeard     Int
-  voted      Int
+  country       Country   @relation(fields: [country_name], references: [name])
+  country_name  String    @id @unique
+  apeard        Int
+  voted         Int
 }
