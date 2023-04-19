@@ -54,7 +54,7 @@ const Home: NextPage<IHomeProps> = ({ countries }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch('https://restcountries.com/v3.1/all?fields=name,flags')
-  const countries: Country[] = await res.json()
+  const countries: Country[] = (await res.json()) as Country[]
   
   return {
     props: {
