@@ -1,9 +1,9 @@
 import type { Country } from "~/pages/types"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import Image from "next/image"
-
+import { defaultOption } from "~/utils/getRandomCountry"
 interface ICountryCardProps {
-  country: Country
+  country: Country | undefined
   onClick: () => void
 }
 
@@ -18,7 +18,7 @@ const CountryCard = (props: ICountryCardProps) => {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex h-full justify-center">
-        <Image src={country.flags.png} alt={country.flags.alt} height={200} width={400} />
+        <Image src={country?.flags.png || defaultOption?.flags.png} alt={country?.flags.alt || defaultOption.flags.alt} height={200} width={400} />
       </CardContent>
     </Card>
   )

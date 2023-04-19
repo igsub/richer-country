@@ -1,6 +1,6 @@
 import type { Country } from "~/pages/types";
 
-const defaultOption: Country = {
+export const defaultOption: Country = {
   name: {
     official: "Not Found",
   },
