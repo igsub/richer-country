@@ -63,7 +63,7 @@ export const countriesRouter = createTRPCRouter({
           data: {
             voted: votes + oneMoreVote,
             apeard: appearences,
-            win_percentage: (votes * 100) / (appearences)
+            win_percentage: Math.floor((votes * 100) / (appearences))
           }
         })
       }
